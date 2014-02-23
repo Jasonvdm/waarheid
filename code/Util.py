@@ -10,11 +10,11 @@ def readDict():
 def isNegative(word):
 	neg_words = ['no', 'not', 'none', 'nobody', 'nothing', 'neither', 'nowhere', 'never']
 	word = word.lower()
-	if word in neg_words: return true
-	return false
+	if word in neg_words: return True
+	return False
 
-def countVerbs(sentence):
-	count = 0
-	for word in sentence:
-		# if word(1)
-	return count
+# def countVerbs(sentence):
+# 	count = 0
+# 	for word in sentence:
+# 		# if word(1)
+# 	return count
