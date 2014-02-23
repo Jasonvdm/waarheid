@@ -6,3 +6,15 @@ def readDict():
         dictionary[line[:endWord]] = (line[endWord + 2:line.find(",")],line[line.find(",")+1:line.find(")")])
     dict_file.close()
     return dictionary
+
+def isNegative(word):
+	neg_words = ['no', 'not', 'none', 'nobody', 'nothing', 'neither', 'nowhere', 'never']
+	word = word.lower()
+	if word in neg_words: return true
+	return false
+
+def countVerbs(sentence):
+	count = 0
+	for word in sentence:
+		# if word(1)
+	return count
