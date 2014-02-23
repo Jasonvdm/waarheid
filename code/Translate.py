@@ -19,4 +19,4 @@ def baseLineTranslations(fileName):
 		print "Translation: "+" ".join(translation)
 		print "---------------------------------------------------------"
 
-baseLineTranslations("corpus")
+baseLineTranslations("dev_set.txt")
