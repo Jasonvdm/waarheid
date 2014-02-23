@@ -1,4 +1,5 @@
 import Util
+import sys
 import re
 
 def baseLineTranslations(fileName):
@@ -19,4 +20,6 @@ def baseLineTranslations(fileName):
 		print "Translation: "+" ".join(translation)
 		print "---------------------------------------------------------"
 
-baseLineTranslations("dev_set.txt")
+if __name__ == "__main__":
+	if len(sys.argv) < 2: baseLineTranslations("dev_set.txt")
+	else: baseLineTranslations(str(sys.argv[1]))
