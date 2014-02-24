@@ -1,6 +1,8 @@
 import Util
 import sys
 import re
+import StrategiesOne
+import StrategiesTwo
 
 def baseLineTranslations(fileName):
 	corpus_file = open("../corpus/"+fileName, 'r')
@@ -16,6 +18,10 @@ def baseLineTranslations(fileName):
 			else:
 				trans = dictionary[matches[0][1]]
 				translation.append((matches[0][0]+trans[0]+matches[0][2],trans[1]))
+		translation = StrategiesOne.applyFullContext(translation)
+		translation = StrategiesOne.applyFromContext(translation)
+		translation = StrategiesTwo.applyDoubleNegativeRule(translation)
+		translation = StrategiesTwo.applyQuestionRule(translation)
 		print ""
 		print line
 		transWords = ""
