@@ -36,9 +36,9 @@ def applyQuestionContextRule(sentence):
 		new_sentence.append(sentence[i])
 		word = sentence[i][0]
 		next_word = sentence[i + 1][0]
-		# If we have "how you", change it to "how do you."
+		# Add do or does between question word and pronoun."
 		if sentence[i][1] == 'Q':
-			if next_word == 'you':
+			if next_word in ['you','I','we']:
 				new_sentence.append(('do', 'V'))
 			else:
 				new_sentence.append(('does', 'V'))

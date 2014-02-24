@@ -6,7 +6,7 @@ import StrategiesTwo
 
 def baseLineTranslations(fileName):
 	corpus_file = open("../corpus/"+fileName, 'r')
-	dictionary = Util.readDict()
+	dictionary = Util.readDict("dictionary.txt")
 	for line in corpus_file:
 		translation = []
 		wordTypes = []
@@ -24,6 +24,7 @@ def baseLineTranslations(fileName):
 		translation = StrategiesTwo.applyQuestionRule(translation)
 		translation = StrategiesTwo.applyNounVerbRule(translation)
 		translation = StrategiesOne.applyQuestionContextRule(translation)
+		translation = StrategiesTwo.applyQuoteTenseRule(translation)
 		print ""
 		print line
 		transWords = ""
