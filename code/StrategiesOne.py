@@ -8,9 +8,9 @@ def applyFullContextRule(sentence):
 	for i in xrange(len(sentence) - 1):
 		new_sentence.append(sentence[i])
 		word = sentence[i][0]
-		next_word = sentence[i + 1][0]
-		# If "full" is in the sentence, and it's not already "full of."
-		if word == 'full' and next_word != 'of':
+		next_word = sentence[i + 1]
+		# If "full" is in the sentence, and it's not already "full of." and the following word is a noun
+		if word == 'full' and next_word[0] != 'of' and next_word[1] == 'N':
 			new_sentence.append(('of', 'P'))
 	new_sentence.append(sentence[-1])
 	return new_sentence
