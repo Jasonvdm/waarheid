@@ -16,11 +16,11 @@ def isNegative(word):
 def countVerbs(sentence):
 	count = 0
 	for word in sentence:
-		if word[0] == 'V': count += 1
+		if word[1] == 'V': count += 1
 	return count
 
 def countNouns(sentence):
 	count = 0
 	for word in sentence:
-		if word[0] == 'N': count += 1
+		if word[1] == 'N': count += 1
 	return count

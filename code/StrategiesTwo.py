@@ -38,3 +38,32 @@ def applyQuoteTenseRule(translation):
 		if translation[i][1] == 'V':
 			translation[i] = pastTense[translation[i][0]]
 	return translation
+
+def applySecondVerbRule(translation):
+	if Util.countVerbs(translation) > 1 and len(translation)>6:
+		firstVerb = -1
+		secondVerb = -1
+		for i in xrange(len(translation)):
+			if translation[i][1] == 'V':
+				if firstVerb == -1:
+					firstVerb = i
+				else:
+					secondVerb = i
+		insertIndex = 0
+		startIndex = secondVerb
+		if translation[secondVerb-1][1] in ['N','PN']:
+			startIndex = secondVerb-1
+		for i in reversed(xrange(startIndex)):
+			if '\"' in translation[i][0] or ',' in translation[i][0] or ':' in translation[i][0]:
+				print translation[i][0]
+				insertIndex = secondVerb
+			if translation[i][1] in ['V','N','PN'] and insertIndex == 0:
+				insertIndex = i + 1
+		newTranslation = []
+		for i in xrange(len(translation)):
+			if i == insertIndex:
+				newTranslation.append(translation[secondVerb])
+			if i == secondVerb: continue
+			newTranslation.append(translation[i])
+		return newTranslation
+	return translation
