@@ -18,3 +18,9 @@ def countVerbs(sentence):
 	for word in sentence:
 		if word[0] == 'V': count += 1
 	return count
+
+def countNouns(sentence):
+	count = 0
+	for word in sentence:
+		if word[0] == 'N': count += 1
+	return count
