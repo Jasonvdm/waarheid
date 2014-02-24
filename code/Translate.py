@@ -18,11 +18,12 @@ def baseLineTranslations(fileName):
 			else:
 				trans = dictionary[matches[0][1]]
 				translation.append((matches[0][0]+trans[0]+matches[0][2],trans[1]))
-		translation = StrategiesOne.applyFullContext(translation)
-		translation = StrategiesOne.applyFromContext(translation)
+		translation = StrategiesOne.applyFullContextRule(translation)
+		translation = StrategiesOne.applyFromContextRule(translation)
 		translation = StrategiesTwo.applyDoubleNegativeRule(translation)
 		translation = StrategiesTwo.applyQuestionRule(translation)
 		translation = StrategiesTwo.applyNounVerbRule(translation)
+		translation = StrategiesOne.applyQuestionContextRule(translation)
 		print ""
 		print line
 		transWords = ""
