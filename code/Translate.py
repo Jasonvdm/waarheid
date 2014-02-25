@@ -27,18 +27,23 @@ def baseLineTranslations(fileName):
 		translation = StrategiesTwo.applyQuoteTenseRule(translation)
 		translation = StrategiesTwo.applySecondVerbRule(translation)
 		translation = StrategiesTwo.applyStillContextRule(translation)
+		translation = StrategiesTwo.applyObjectRule(translation)
 		translation = StrategiesTwo.applyCapitalizationPeriodRule(translation)
-		print ""
-		print line
-		transWords = ""
-		for i in xrange(len(translation)):
-			transWords += translation[i][0] + " "
-		print transWords
-		transTypes = ""
-		for i in xrange(len(translation)):
-			transTypes += translation[i][1] + " "
-		print transTypes
-		print "---------------------------------------------------------"
+		printTranslations(translation,line)
+		
+
+def printTranslations(translation,line):
+	print ""
+	print line
+	transWords = ""
+	for i in xrange(len(translation)):
+		transWords += translation[i][0] + " "
+	print transWords
+	transTypes = ""
+	for i in xrange(len(translation)):
+		transTypes += translation[i][1] + " "
+	print transTypes
+	print "---------------------------------------------------------"
 
 if __name__ == "__main__":
 	if len(sys.argv) < 2: baseLineTranslations("dev_set.txt")

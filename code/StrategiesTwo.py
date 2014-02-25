@@ -98,5 +98,44 @@ def applyCapitalizationPeriodRule(translation):
 	lastWord = translation[-1][0]
 	if lastWord[-1] not in ['.','?','!']:
 		lastWord += '.'
-	translation[-1] = (lastWord,translation[-1][0])
+	translation[-1] = (lastWord,translation[-1][1])
 	return translation
+
+def applyObjectRule(translation):
+	
+	# Return if less than two verbs.
+	num_verbs = Util.countVerbs(translation)
+	if num_verbs < 2: return translation
+	# See if there N PN pattern exists.
+	obj = ''
+	index_of_object = 0
+	for i in xrange(len(translation) - 1):
+		cur_pos = translation[i][1]
+		next_pos = translation[i + 1][1]
+		if cur_pos == 'N' and next_pos == 'PN' or cur_pos == 'PN' and next_pos == 'PN':
+			if '\"' in translation[i][0] or ',' in translation[i][0] or ':' in translation[i][0]: continue
+			index_of_object = i + 1
+			obj = translation[i + 1][0]
+
+	# If we don't find a second pronoun, return.
+	if obj == '': return translation
+	# Bookkeeping.
+	count = 0
+	index_of_second_verb = 0
+	# Find the second verb.
+	for i in xrange(len(translation)):
+		part_of_speech = translation[i][1]
+		if part_of_speech == 'V':
+			count += 1
+		if count == 2:
+			index_of_second_verb = i
+			break
+
+	# Build up the new sentence.
+	new_sentence = []
+	for i in xrange(len(translation)):
+		if i == index_of_object: continue
+		new_sentence.append(translation[i])
+		if i == index_of_second_verb:
+			new_sentence.append((obj, 'PN'))
+	return new_sentence
