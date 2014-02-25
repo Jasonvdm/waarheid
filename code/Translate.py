@@ -26,6 +26,8 @@ def baseLineTranslations(fileName):
 		translation = StrategiesOne.applyQuestionContextRule(translation)
 		translation = StrategiesTwo.applyQuoteTenseRule(translation)
 		translation = StrategiesTwo.applySecondVerbRule(translation)
+		translation = StrategiesTwo.applyStillContextRule(translation)
+		translation = StrategiesTwo.applyCapitalizationPeriodRule(translation)
 		print ""
 		print line
 		transWords = ""

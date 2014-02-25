@@ -1,4 +1,5 @@
 import Util
+import string
 
 def applyDoubleNegativeRule(translation):
 	if Util.isNegative(translation[-1][0]):
@@ -66,4 +67,36 @@ def applySecondVerbRule(translation):
 			if i == secondVerb: continue
 			newTranslation.append(translation[i])
 		return newTranslation
+	return translation
+
+def applyStillContextRule(translation):
+	iIndex = -1
+	word = ""
+	for i in xrange(len(translation)):
+		if translation[i][0] == "still" and translation[i-1][0] not in ['is','are'] and translation[i+1][1] != 'V':
+			iIndex = i
+			word = "is"
+			if translation[i-1][0][-1] == 's':
+				word = "are"
+	newTranslation = []
+	for i in xrange(len(translation)):
+		if i == iIndex:
+			newTranslation.append((word,'V'))
+		newTranslation.append(translation[i])
+	return newTranslation
+
+def applyCapitalizationPeriodRule(translation):
+	firstWord = translation[0][0]
+	if firstWord[0] not in string.ascii_letters:
+		newWord = firstWord[0] + firstWord[1].upper()
+		if len(firstWord)> 2:
+			newWord += firstWord[2:]
+		firstWord = newWord
+	else:
+		firstWord = firstWord[0].upper() + firstWord[1:]
+	translation[0] = (firstWord,translation[0][1])
+	lastWord = translation[-1][0]
+	if lastWord[-1] not in ['.','?','!']:
+		lastWord += '.'
+	translation[-1] = (lastWord,translation[-1][0])
 	return translation
