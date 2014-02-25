@@ -1,6 +1,13 @@
 import Util
 import string
 
+def applyEndVerbTenseRule(translation):
+	if translation[-1][1] == 'V':
+		pastTense = Util.readDict("english_tenses")
+		if translation[-1][0] in pastTense:
+			translation[-1] = (pastTense[translation[-1][0]])
+	return translation
+
 def applyDoubleNegativeRule(translation):
 	if Util.isNegative(translation[-1][0]):
 		return translation[:-1]
@@ -36,7 +43,7 @@ def applyQuoteTenseRule(translation):
 	for i in xrange(len(translation)):
 		if i in xrange(startQuote,endQuote+1):
 			continue
-		if translation[i][1] == 'V':
+		if translation[i][1] == 'V' and translation[i][0] in pastTense:
 			translation[i] = pastTense[translation[i][0]]
 	return translation
 
