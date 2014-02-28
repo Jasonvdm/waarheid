@@ -52,18 +52,4 @@ def printTranslations(translation):#,line):
 if __name__ == "__main__":
 	if len(sys.argv) < 2: baseLineTranslations("dev_set.txt")
 	else: baseLineTranslations(str(sys.argv[1]))
-	translation = [('After','P'),('running','V'),('I','PN'),('will','V'),('a','A'),('car','N'),('to','ADV'),('buy','V')]
-	printTranslations(translation)
-	translation = StrategiesOne.applyFullContextRule(translation)
-	translation = StrategiesOne.applyFromContextRule(translation)
-	translation = StrategiesTwo.applyDoubleNegativeRule(translation)
-	translation = StrategiesTwo.applyQuestionRule(translation)
-	translation = StrategiesTwo.applySecondVerbRule(translation)
-	translation = StrategiesTwo.applyEndVerbTenseRule(translation)
-	translation = StrategiesTwo.applyObjectRule(translation)
-	translation = StrategiesTwo.applyNounVerbRule(translation)
-	translation = StrategiesOne.applyQuestionContextRule(translation)
-	translation = StrategiesTwo.applyQuoteTenseRule(translation)
-	translation = StrategiesTwo.applyStillContextRule(translation)
-	translation = StrategiesTwo.applyCapitalizationPeriodRule(translation)
-	printTranslations(translation)
+	

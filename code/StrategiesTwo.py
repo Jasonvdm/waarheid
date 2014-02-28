@@ -6,12 +6,12 @@ def applyEndVerbTenseRule(translation):
 		pastTense = Util.readDict("english_tenses")
 		if translation[-1][0] in pastTense:
 			translation[-1] = (pastTense[translation[-1][0]])
-	if Util.countVerbs(translation) > 1 and len(translation)>6 and translation[-1][1] == 'V':
+	if Util.countVerbs(translation) > 1 and translation[-1][1] == 'V':
 		secondVerb = len(translation)
 		insertIndex = 0
 		startIndex = secondVerb
-		if translation[secondVerb-1][1] in ['N','PN']:
-			startIndex = secondVerb-1
+		# if translation[secondVerb-1][1] in ['N','PN']:
+		# 	startIndex = secondVerb-1
 		for i in reversed(xrange(startIndex)):
 			if '\"' in translation[i][0] or ',' in translation[i][0] or ':' in translation[i][0]:
 				insertIndex = secondVerb
@@ -23,7 +23,6 @@ def applyEndVerbTenseRule(translation):
 				newTranslation.append(translation[secondVerb])
 			if i == secondVerb: continue
 			newTranslation.append(translation[i])
-		print newTranslation[-1][0]
 		if newTranslation[-1][0] == 'to':
 			return newTranslation[:-1]
 		return newTranslation
@@ -75,7 +74,7 @@ def applyQuoteTenseRule(translation):
 	return translation
 
 def applySecondVerbRule(translation):
-	if Util.countVerbs(translation) > 1 and len(translation)>6:
+	if Util.countVerbs(translation) > 1:
 		firstVerb = -1
 		secondVerb = -1
 		for i in xrange(len(translation)):
@@ -86,8 +85,8 @@ def applySecondVerbRule(translation):
 					secondVerb = i
 		insertIndex = 0
 		startIndex = secondVerb
-		if translation[secondVerb-1][1] in ['N','PN']:
-			startIndex = secondVerb-1
+		# if translation[secondVerb-1][1] in ['N','PN']:
+		# 	startIndex = secondVerb-1
 		for i in reversed(xrange(startIndex)):
 			if '\"' in translation[i][0] or ',' in translation[i][0] or ':' in translation[i][0]:
 				insertIndex = secondVerb
