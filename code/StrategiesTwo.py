@@ -6,6 +6,27 @@ def applyEndVerbTenseRule(translation):
 		pastTense = Util.readDict("english_tenses")
 		if translation[-1][0] in pastTense:
 			translation[-1] = (pastTense[translation[-1][0]])
+	if Util.countVerbs(translation) > 1 and len(translation)>6 and translation[-1][1] == 'V':
+		secondVerb = len(translation)
+		insertIndex = 0
+		startIndex = secondVerb
+		if translation[secondVerb-1][1] in ['N','PN']:
+			startIndex = secondVerb-1
+		for i in reversed(xrange(startIndex)):
+			if '\"' in translation[i][0] or ',' in translation[i][0] or ':' in translation[i][0]:
+				insertIndex = secondVerb
+			if translation[i][1] == 'V' and insertIndex == 0:
+				insertIndex = i + 1
+		newTranslation = []
+		for i in xrange(len(translation)):
+			if i == insertIndex:
+				newTranslation.append(translation[secondVerb])
+			if i == secondVerb: continue
+			newTranslation.append(translation[i])
+		print newTranslation[-1][0]
+		if newTranslation[-1][0] == 'to':
+			return newTranslation[:-1]
+		return newTranslation
 	return translation
 
 def applyDoubleNegativeRule(translation):
@@ -20,12 +41,18 @@ def applyQuestionRule(translation):
 	return translation
 
 def applyNounVerbRule(translation):
-	for i in xrange(len(translation)-1):
-		currTup = translation[i]
-		nextTup = translation[i+1]
-		if currTup[1] == 'V' and nextTup[1] in ['N','PN'] and currTup[0] != 'is':
-			translation[i] = nextTup
-			translation[i+1] = currTup
+	for i in xrange(1,len(translation)-1):
+		currTup = translation[i-1]
+		nextTup = translation[i]
+		nextNextTup = translation[i+1]
+		if currTup[1] == 'V' and nextTup[1] in ['N','PN'] and currTup[0] != 'is' and nextNextTup[1] != 'V':
+			translation[i-1] = nextTup
+			translation[i] = currTup
+	currTup = translation[-2]
+	nextTup = translation[-1]
+	if currTup[1] == 'V' and nextTup[1] in ['N','PN'] and currTup[0] != 'is':
+		translation[-2] = nextTup
+		translation[-1] = currTup
 	return translation
 
 def applyQuoteTenseRule(translation):
@@ -64,7 +91,7 @@ def applySecondVerbRule(translation):
 		for i in reversed(xrange(startIndex)):
 			if '\"' in translation[i][0] or ',' in translation[i][0] or ':' in translation[i][0]:
 				insertIndex = secondVerb
-			if translation[i][1] in ['V','N','PN'] and insertIndex == 0:
+			if translation[i][1] == 'V' and insertIndex == 0:
 				insertIndex = i + 1
 		newTranslation = []
 		for i in xrange(len(translation)):
@@ -72,8 +99,11 @@ def applySecondVerbRule(translation):
 				newTranslation.append(translation[secondVerb])
 			if i == secondVerb: continue
 			newTranslation.append(translation[i])
+		if newTranslation[-1][0] == 'to':
+			return newTranslation[:-1]
 		return newTranslation
 	return translation
+
 
 def applyStillContextRule(translation):
 	iIndex = -1
