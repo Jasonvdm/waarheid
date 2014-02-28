@@ -63,7 +63,6 @@ def applySecondVerbRule(translation):
 			startIndex = secondVerb-1
 		for i in reversed(xrange(startIndex)):
 			if '\"' in translation[i][0] or ',' in translation[i][0] or ':' in translation[i][0]:
-				print translation[i][0]
 				insertIndex = secondVerb
 			if translation[i][1] in ['V','N','PN'] and insertIndex == 0:
 				insertIndex = i + 1

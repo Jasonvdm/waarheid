@@ -4,13 +4,14 @@ import Util
 # Replace "full" with "full of."
 def applyFullContextRule(sentence):
 	new_sentence = []
+	new_sentence.append(sentence[0])
 	# Minus one indexing for lookahead.
-	for i in xrange(len(sentence) - 1):
+	for i in xrange(1,len(sentence)-1):
 		new_sentence.append(sentence[i])
 		word = sentence[i][0]
-		next_word = sentence[i + 1]
-		# If "full" is in the sentence, and it's not already "full of." and the following word is a noun
-		if word == 'full' and next_word[0] != 'of' and next_word[1] == 'N':
+		prev_word = sentence[i - 1]
+		next_word = sentence[i+1]
+		if word == 'full' and next_word[1] == 'N' and prev_word[1] == 'V':
 			new_sentence.append(('of', 'P'))
 	new_sentence.append(sentence[-1])
 	return new_sentence

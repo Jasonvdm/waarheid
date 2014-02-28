@@ -8,6 +8,7 @@ def baseLineTranslations(fileName):
 	corpus_file = open("../corpus/"+fileName, 'r')
 	dictionary = Util.readDict("dictionary.txt")
 	for line in corpus_file:
+		print line
 		translation = []
 		wordTypes = []
 		for word in line.split():
@@ -18,7 +19,7 @@ def baseLineTranslations(fileName):
 			else:
 				trans = dictionary[matches[0][1]]
 				translation.append((matches[0][0]+trans[0]+matches[0][2],trans[1]))
-		translation = StrategiesTwo.applyEndVerbTenseRule(translation)
+		printTranslations(translation)
 		translation = StrategiesOne.applyFullContextRule(translation)
 		translation = StrategiesOne.applyFromContextRule(translation)
 		translation = StrategiesTwo.applyDoubleNegativeRule(translation)
@@ -30,21 +31,23 @@ def baseLineTranslations(fileName):
 		translation = StrategiesTwo.applyStillContextRule(translation)
 		translation = StrategiesTwo.applyObjectRule(translation)
 		translation = StrategiesTwo.applyCapitalizationPeriodRule(translation)
-		printTranslations(translation,line)
+		translation = StrategiesTwo.applyEndVerbTenseRule(translation)
+		printTranslations(translation)
+		print "-------------------------------------------------------------------"
 		
 
-def printTranslations(translation,line):
-	print ""
-	print line
+def printTranslations(translation):#,line):
+	# print ""
+	# print line
 	transWords = ""
 	for i in xrange(len(translation)):
 		transWords += translation[i][0] + " "
 	print transWords
-	transTypes = ""
-	for i in xrange(len(translation)):
-		transTypes += translation[i][1] + " "
-	print transTypes
-	print "---------------------------------------------------------"
+	# transTypes = ""
+	# for i in xrange(len(translation)):
+	# 	transTypes += translation[i][1] + " "
+	# print transTypes
+	# print "---------------------------------------------------------"
 
 if __name__ == "__main__":
 	if len(sys.argv) < 2: baseLineTranslations("dev_set.txt")
